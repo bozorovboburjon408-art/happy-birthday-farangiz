@@ -41,10 +41,12 @@
   <!-- Background Floating Balloons -->
   <div id="balloonContainer" class="balloon-container"></div>
 
-  <!-- Audio Element (Optional user mp3 fallback) -->
+  <!-- Audio Element (Original Happy Birthday track) -->
   <audio id="bgAudio" loop preload="auto">
     <source src="images/music.mp3" type="audio/mpeg">
+    <source src="images/music.ogg" type="audio/ogg">
     <source src="music.mp3" type="audio/mpeg">
+    <source src="music.ogg" type="audio/ogg">
   </audio>
 
   <!-- Floating Music Toggle Controller -->
@@ -73,14 +75,14 @@
       </div>
 
       <div class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-600 text-xs font-bold uppercase tracking-wider mb-3">
-        Farangiz uchun maxsus
+        Farangiz — 17 Yosh!
       </div>
 
       <h2 class="text-2xl sm:text-3xl font-bold font-serif-title text-gray-800 mb-2">
         Senga Kutilmagan Sovg'a Bor! ✨
       </h2>
       <p class="text-sm text-gray-600 mb-6 leading-relaxed">
-        Bugun sen uchun juda o'zgacha kun. Akang Boburdan tayyorlangan samimiy tabrikni ko'rish uchun qutini och!
+        Bugun sen 16 yoshni ortda qoldirib, 17 yoshga qadam qo'yding. Akang Boburdan tayyorlangan samimiy tabrikni ko'rish uchun qutini och!
       </p>
 
       <button onclick="openGiftIntro()" 
@@ -101,12 +103,12 @@
       <!-- Cute Date Badge -->
       <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-rose-200 text-rose-600 font-semibold text-xs sm:text-sm shadow-sm">
         <span class="animate-bounce">🎉</span>
-        <span>Bugun — 18-Sentabr: Dunyodagi eng quvonchli kun!</span>
+        <span>Bugun — 18-Sentabr: Farangiz 17 yoshda!</span>
       </div>
 
       <!-- Main Heading -->
       <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold font-serif-title tracking-tight text-gray-800 leading-tight">
-        Tug'ilgan kuning muborak, <br class="hidden sm:inline" />
+        17 Yoshing Muborak Bo'lsin, <br class="hidden sm:inline" />
         <span class="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 bg-clip-text text-transparent">
           Farangiz! 🎂✨
         </span>
@@ -115,10 +117,10 @@
       <!-- Subtitle from Bobur -->
       <div class="max-w-2xl mx-auto">
         <p class="text-lg sm:text-2xl font-handwriting text-rose-600 font-bold tracking-wide">
-          "Eng ezgu va samimiy tilaklar bilan — Akang Boburdan"
+          "16 yoshni ortda qoldirib, 17 bahoringni qarshilashing qutlug' bo'lsin! — Akang Boburdan"
         </p>
         <p class="text-sm sm:text-base text-gray-600 mt-2 leading-relaxed">
-          Ushbu sahifa senga bayramona kayfiyat, tabassum va unutilmas xotiralar baxsh etish uchun maxsus mehr bilan tayyorlandi.
+          Bizning quvnoq va samimiy ammavachchamiz Farangiz uchun akasi Boburdan bayramona esdalik sahifasi.
         </p>
       </div>
 
@@ -155,37 +157,33 @@
 
         <!-- The Cake & Candles Graphic -->
         <div class="relative py-4 flex flex-col items-center justify-center cursor-pointer select-none" onclick="blowCandles()">
-          <!-- 3 Candles -->
+          <!-- 17 Number Candles -->
           <div class="flex space-x-6 mb-1 relative z-10">
-            <!-- Candle 1 -->
+            <!-- Candle 1: Number "1" -->
             <div class="flex flex-col items-center">
               <div class="relative">
                 <div class="cake-flame"></div>
                 <div class="smoke"></div>
               </div>
-              <div class="w-3.5 h-10 bg-gradient-to-b from-pink-300 to-rose-400 rounded-t-sm shadow-sm"></div>
+              <div class="w-8 h-12 bg-gradient-to-b from-amber-300 via-yellow-200 to-amber-400 rounded-lg shadow-md border border-amber-300 flex items-center justify-center font-extrabold text-amber-900 text-lg">
+                1
+              </div>
             </div>
-            <!-- Candle 2 (Middle) -->
+            <!-- Candle 2: Number "7" -->
             <div class="flex flex-col items-center">
               <div class="relative">
                 <div class="cake-flame" style="animation-delay: 0.3s"></div>
                 <div class="smoke"></div>
               </div>
-              <div class="w-3.5 h-12 bg-gradient-to-b from-amber-300 to-yellow-400 rounded-t-sm shadow-sm"></div>
-            </div>
-            <!-- Candle 3 -->
-            <div class="flex flex-col items-center">
-              <div class="relative">
-                <div class="cake-flame" style="animation-delay: 0.6s"></div>
-                <div class="smoke"></div>
+              <div class="w-8 h-12 bg-gradient-to-b from-rose-300 via-pink-200 to-rose-400 rounded-lg shadow-md border border-rose-300 flex items-center justify-center font-extrabold text-rose-900 text-lg">
+                7
               </div>
-              <div class="w-3.5 h-10 bg-gradient-to-b from-purple-300 to-indigo-400 rounded-t-sm shadow-sm"></div>
             </div>
           </div>
 
           <!-- Cake Layers -->
           <div class="w-48 sm:w-56 h-12 bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 rounded-t-2xl shadow-inner border-b-4 border-rose-300 relative flex items-center justify-center">
-            <span class="text-xs font-semibold text-rose-500 tracking-wider">✨ FARANGIZ ✨</span>
+            <span class="text-xs font-bold text-rose-600 tracking-wider">🌸 17 YOSHING MUBORAK 🌸</span>
           </div>
           <div class="w-60 sm:w-72 h-14 bg-gradient-to-r from-amber-100 via-white to-amber-100 rounded-t-2xl shadow-md border-b-4 border-amber-200 flex items-center justify-around px-4">
             <span class="text-base">🍓</span>
@@ -202,16 +200,16 @@
         <div>
           <button id="blowCandleBtn" onclick="blowCandles()" 
                   class="px-8 py-3 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-sm sm:text-base shadow-md hover:scale-105 active:scale-95 transition-all">
-            ✨ Barcha shamlarni o'chirish
+            ✨ 17 yosh shamlarini o'chirish
           </button>
         </div>
 
         <!-- Wish Message Banner (revealed on blow out) -->
         <div id="wishResultBanner" class="hidden flex-col items-center p-4 bg-amber-50/90 border border-amber-200 rounded-2xl animate-fade-in">
           <span class="text-2xl mb-1">🌟</span>
-          <h4 class="font-bold text-amber-800 text-base sm:text-lg">Niyating qabul bo'lsin, Farangiz!</h4>
+          <h4 class="font-bold text-amber-800 text-base sm:text-lg">17 Yoshing qutlug' bo'lsin, Farangiz!</h4>
           <p class="text-xs sm:text-sm text-amber-700 text-center max-w-md mt-1">
-            Barcha ezgu orzularing eng go'zal tarzda amalga oshsin. Yangi yoshing senga cheksiz omad, baxt va zafarlar keltirsin!
+            Barcha ezgu orzularing eng go'zal tarzda amalga oshsin. 17 yosh senga o'qishlaringda katta marralar, ajoyib imkoniyatlar va doimiy omad keltirsin!
           </p>
         </div>
       </div>
@@ -388,25 +386,25 @@
         <div class="w-full lg:w-7/12 space-y-5 text-center lg:text-left">
           <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-rose-100/90 text-rose-600 text-xs font-bold uppercase tracking-wider">
             <span>🛡️</span>
-            <span>Akang Boburdan Yurak So'zlari</span>
+            <span>Akang Boburdan Qardoshlik Tilagi</span>
           </div>
 
           <h3 class="text-3xl sm:text-4xl font-bold font-serif-title text-gray-800 leading-tight">
-            "Sen mening eng mehribon, eng suyukli singlimsan!"
+            "Farangiz, 17 bahoring muborak bo'lsin!"
           </h3>
 
           <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-            Farangiz, ushbu surat bizning birgalikdagi eng qadrli xotiralarimizdan biri. Hayot yo'llarida qanday kunlar bo'lmasin, senga suyanchiq bo'ladigan, har bir muvaffaqiyatingdan quvonadigan va sen bilan doim faxrlanadigan Bobur akang borligini hech qachon unutma.
+            Farangiz, bu surat bizning eng esda qolarli va chiroyli xotiralarimizdan biri. Bugun 16 yoshni ortda qoldirib, katta marralar va orzular sari eltuvchi 17 yoshingni qarshi olding. Hayot yo'llarida har doim senga qarindosh, aka sifatida suyanadigan, to'g'ri maslahat beradigan va muvaffaqiyatlaringdan quvonadigan Bobur akang borligini unutma.
           </p>
 
           <p class="text-gray-600 leading-relaxed text-sm sm:text-base font-medium">
-            Senga dunyodagi eng samimiy baxtni, cheksiz muhabbatni va har qadamda omad hamroh bo'lishini tilayman. Har doim shunday ochiqko'ngil, quvnoq va mehribon bo'lib yurgin!
+            Senga mustahkam sog'liq, o'qishlaringda ulkan zafarlar, eng yaxshi do'stlar va yorug' kelajak tilayman. Har doim shunday quvnoq, samimiy va intiluvchan bo'lib yurgin!
           </p>
 
           <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-3">
             <button onclick="rainHearts()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold text-sm shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
-              <i class="fas fa-heart"></i>
-              <span>Akangdan Cheksiz Mehr</span>
+              <i class="fas fa-hand-holding-heart"></i>
+              <span>Akang Boburdan Tilak</span>
             </button>
             <button onclick="triggerFireworks()" class="px-6 py-2.5 rounded-xl bg-white border border-rose-200 text-rose-600 font-semibold text-sm shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
               <i class="fas fa-sparkles text-amber-500"></i>
@@ -469,10 +467,10 @@
             🛡️
           </div>
           <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif-title">
-            Har Doim Sen Bilanman
+            Doimiy Suyanchiq va Maslahatdosh
           </h3>
           <p class="text-sm text-gray-600 leading-relaxed">
-            Yodingda tut, hayotda qanday vaziyat bo'lishidan qat'i nazar, orqangda seni har doim himoya qiladigan, qo'llab-quvvatlaydigan va sen bilan cheksiz faxrlanadigan Bobur akang bor. Sen bizning suyukli, mehrli va eng qadrli singlimizsan!
+            Yodingda tut, hayotda qanday vaziyat bo'lishidan qat'i nazar, orqangda seni har doim qo'llab-quvvatlaydigan va sen bilan faxrlanadigan Bobur akang bor. Sen bizning aqlli, quvnoq va samimiy singlimizsan!
           </p>
         </div>
 
@@ -485,7 +483,7 @@
             Cheksiz Baxt va Quvonch
           </h3>
           <p class="text-sm text-gray-600 leading-relaxed">
-            Yangi yoshing senga kutilmagan ajoyib sovg'alar, qiziqarli sarguzashtlar, eng samimiy insonlar va unutilmas baxtli onlarni hadya etsin. Har bir kuning bayramdek quvonchli va mazmunli o'tsin!
+            Yangi 17 yoshing senga kutilmagan ajoyib sovg'alar, qiziqarli sarguzashtlar, eng samimiy insonlar va unutilmas baxtli onlarni hadya etsin. Har bir kuning bayramdek quvonchli va mazmunli o'tsin!
           </p>
         </div>
 
@@ -507,14 +505,14 @@
     <footer class="text-center pt-10 pb-8 border-t border-rose-200/60 space-y-3">
       <div class="flex items-center justify-center space-x-2 text-rose-500 text-xl">
         <span>✨</span>
-        <i class="fas fa-heart text-red-500"></i>
+        <i class="fas fa-heart text-rose-400"></i>
         <span>✨</span>
       </div>
       <p class="font-serif-title text-base sm:text-lg text-gray-700 font-bold">
-        Cheksiz mehr va hurmat bilan: Akang Bobur
+        Samimiy tilaklar bilan: Akang Bobur
       </p>
       <p class="text-xs text-gray-500">
-        Farangizning tavallud ayyomi uchun maxsus tayyorlandi • 2026-yil
+        Farangizning 17 yosh to'yiga maxsus tayyorlandi • 2026-yil
       </p>
     </footer>
 

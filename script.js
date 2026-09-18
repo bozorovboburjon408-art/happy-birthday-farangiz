@@ -21,13 +21,33 @@ function createBalloons() {
   }
 }
 
-// --- Web Audio API Music Box (Happy Birthday melody) ---
+// --- Original & Synthesized Audio Player ---
 class MusicBox {
   constructor() {
     this.ctx = null;
     this.isPlaying = false;
     this.timeoutId = null;
     this.audioElement = document.getElementById('bgAudio');
+  }
+
+  play() {
+    if (this.audioElement) {
+      this.audioElement.volume = 0.8;
+      const playPromise = this.audioElement.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          this.isPlaying = true;
+          this.updateButtonUI(true);
+        }).catch((err) => {
+          console.log('Audio autoplay prevented or failed, using synth fallback:', err);
+          this.playHappyBirthday();
+          this.updateButtonUI(true);
+        });
+      }
+    } else {
+      this.playHappyBirthday();
+      this.updateButtonUI(true);
+    }
   }
 
   initContext() {
@@ -46,7 +66,6 @@ class MusicBox {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
 
-    // Soft chime bell sound (sine + gentle decay)
     osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, time);
 
@@ -60,7 +79,6 @@ class MusicBox {
     osc.start(time);
     osc.stop(time + duration);
 
-    // Add overtone for bell-like chime
     const overtone = this.ctx.createOscillator();
     const overGain = this.ctx.createGain();
     overtone.type = 'triangle';
@@ -79,10 +97,8 @@ class MusicBox {
     this.initContext();
     this.isPlaying = true;
 
-    // Frequencies for Happy Birthday (Key of C)
     const C4 = 261.63, D4 = 293.66, E4 = 329.63, F4 = 349.23, G4 = 392.00, A4 = 440.00, B4 = 493.88, C5 = 523.25;
     
-    // Notes: [freq, durationInBeats]
     const melody = [
       [C4, 0.75], [C4, 0.25], [D4, 1.0], [C4, 1.0], [F4, 1.0], [E4, 2.0],
       [C4, 0.75], [C4, 0.25], [D4, 1.0], [C4, 1.0], [G4, 1.0], [F4, 2.0],
@@ -90,7 +106,7 @@ class MusicBox {
       [A4, 0.75], [A4, 0.25], [A4, 1.0], [F4, 1.0], [G4, 1.0], [F4, 2.5]
     ];
 
-    const beatLength = 0.55; // tempo
+    const beatLength = 0.55;
     let startTime = this.ctx.currentTime + 0.1;
 
     melody.forEach(([note, beats]) => {
@@ -107,38 +123,15 @@ class MusicBox {
   }
 
   toggle() {
-    const btn = document.getElementById('musicToggleBtn');
-    const icon = document.getElementById('musicIcon');
-    const text = document.getElementById('musicStatusText');
-
-    // Check if external mp3 exists and is playable
-    if (this.audioElement && this.audioElement.src && !this.audioElement.error) {
-      if (this.audioElement.paused) {
-        this.audioElement.play().then(() => {
-          this.isPlaying = true;
-          this.updateButtonUI(true);
-        }).catch(() => {
-          this.toggleSynth();
-        });
-      } else {
-        this.audioElement.pause();
-        this.isPlaying = false;
-        this.updateButtonUI(false);
-      }
-      return;
-    }
-
-    this.toggleSynth();
-  }
-
-  toggleSynth() {
     if (this.isPlaying) {
+      if (this.audioElement && !this.audioElement.paused) {
+        this.audioElement.pause();
+      }
       this.isPlaying = false;
       if (this.timeoutId) clearTimeout(this.timeoutId);
       this.updateButtonUI(false);
     } else {
-      this.playHappyBirthday();
-      this.updateButtonUI(true);
+      this.play();
     }
   }
 
@@ -163,6 +156,7 @@ class MusicBox {
 }
 
 const musicPlayer = new MusicBox();
+
 
 // --- Confetti Canvas System ---
 const canvas = document.getElementById('confettiCanvas');
@@ -363,20 +357,20 @@ function blowCandles() {
 // --- Brother Bobur's Surprise Wishes Modal ---
 const surpriseWishes = [
   {
-    title: "Akang Boburdan maxsus eslatma 🌟",
-    text: "Farangiz, yodingda tut: hayotda qanday qiyin yoki quvonchli vaziyat bo'lmasin, orqangda seni doimo qo'llab-quvvatlaydigan va sen bilan cheksiz faxrlanadigan Bobur akang bor. Sen eng yaxshisiga loyiqsan!"
+    title: "Akang Boburdan qardoshlik tilagi 🌟",
+    text: "Farangiz, 17 yoshing qutlug' bo'lsin! Hayotda har doim senga tog'dek suyanadigan, muvaffaqiyatlaringdan quvonadigan Bobur akang bor. Har bir qadaming omadli bo'lsin!"
   },
   {
-    title: "Orzular va Kelajak haqida 🚀",
-    text: "O'z orzularingdan hech qachon chekinma! Senda ulkan salohiyat, samimiylik va kuch bor. Har bir maqsading sari dadil qadam tashla, muvaffaqiyat har doim senga yor bo'lsin!"
+    title: "17 Yosh va Katta Marralar 🚀",
+    text: "16 yoshni ajoyib xotiralar bilan ortda qoldirib, yangi 17 yoshingni qarshi olding. O'qishlaringda va kelajakdagi barcha orzularingda doimo omad yor bo'lsin!"
   },
   {
-    title: "Har doim kulib yur! 😊",
-    text: "Sening samimiy tabassuming nafaqat o'zingga, balki butun oilamizga va atrofingdagilarga o'zgacha nur bag'ishlaydi. Yangi yoshingda yuzingdan quvonch hech qachon arimasin!"
+    title: "Doimo kulib yur! 😊",
+    text: "Sening quvnoqliging va samimiy xaraktering butun qarindoshlarimizga xush kayfiyat ulashadi. Yangi yoshingda ham yuzingdan tabassum aslo arimasin!"
   },
   {
-    title: "Baxt va Tinchlik Tilagi 💖",
-    text: "Dunyodagi eng ezgu, eng beg'ubor tilaklar senga bo'lsin, Farangiz. Hayot yo'llaring gullarga, qalbing doim xotirjamlik va mehrga to'la bo'lsin!"
+    title: "Sog'lik va Zafarlar Tilagi 💫",
+    text: "Farangiz, senga mustahkam sog'liq, qalb xotirjamligi va barcha boshlagan ishlaringda faqat va faqat zafarlar tilayman!"
   }
 ];
 
@@ -421,9 +415,8 @@ function openGiftIntro() {
   launchConfetti(150, window.innerWidth / 2, window.innerHeight / 2, true);
   rainHearts();
 
-  // Try to start music
-  musicPlayer.playHappyBirthday();
-  musicPlayer.updateButtonUI(true);
+  // Play original music track
+  musicPlayer.play();
 
   setTimeout(() => {
     if (introModal) {
