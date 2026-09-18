@@ -1,0 +1,13 @@
+FARANGIZNING SURATLARINI QO'YISH BO'YICHA QO'LLANMA:
+
+Ushbu `images/` papkasiga Farangizning 4 ta rasmini quyidagi nomlar bilan saqlang:
+
+1. `farangiz1.jpg`  -> 1-polaroid kartochkasi ("Samimiy Tabassum Egasi")
+2. `farangiz2.jpg`  -> 2-polaroid kartochkasi ("Beg'ubor va Go'zal Onlar")
+3. `farangiz3.jpg`  -> 3-polaroid kartochkasi ("Orzular Sari Dadil Qadam")
+4. `farangiz4.jpg`  -> 4-polaroid kartochkasi ("Baxtli va Omadli Kunlar")
+
+Eslatma:
+- Rasmlar formati `.jpg`, `.jpeg` yoki `.png` bo'lishi mumkin (agar .png qilsangiz, index.html dagi .jpg ni .png ga o'zgartirishingiz yoki rasmni .jpg deb nomlab qo'yishingiz mumkin).
+- Agar o'z qo'shig'ingiz (musiqa) bo'lsa, uni ham shu `images/` papkasiga `music.mp3` nomi bilan tashlab qo'ysangiz, sayt avtomatik ravishda ushbu qo'shiqni ijro etadi!
+- Hozircha rasmlar joyida chiroyli bayramona vektor rasmlar (farangiz1.svg, farangiz2.svg...) turibdi, haqiqiy suratlarni tashlashingiz bilan avtomatik suratlar ko'rinadi!

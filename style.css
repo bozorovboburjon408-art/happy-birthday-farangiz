@@ -1,0 +1,259 @@
+/* Custom Styles & Keyframe Animations */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+  --primary-pink: #ff5e8e;
+  --secondary-pink: #ff8fa3;
+  --soft-gold: #ffb703;
+  --light-bg: #fff0f3;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 235, 240) 0%, rgb(255, 245, 248) 50.3%, rgb(245, 235, 255) 90%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #2d3748;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+.font-serif-title {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Floating Balloons */
+.balloon-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -120px;
+  width: 48px;
+  height: 60px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  opacity: 0.85;
+  animation: floatUp 14s linear infinite;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.08));
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 24px;
+  background: rgba(120, 120, 120, 0.4);
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+/* Sparkle twinkle */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+}
+
+.sparkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Glowing Pulsate */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 94, 142, 0.4), 0 0 30px rgba(255, 183, 3, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 94, 142, 0.7), 0 0 50px rgba(255, 183, 3, 0.4);
+  }
+}
+
+@keyframes blueGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.35), 0 0 40px rgba(0, 180, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(0, 119, 255, 0.65), 0 0 60px rgba(0, 210, 255, 0.4);
+  }
+}
+
+.blue-glow {
+  animation: blueGlow 3s infinite ease-in-out;
+}
+
+
+/* Polaroid Photo Card */
+.polaroid-card {
+  background: white;
+  padding: 12px 12px 28px 12px;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1), 0 8px 15px -6px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.polaroid-card:hover {
+  transform: translateY(-8px) scale(1.03) rotate(0deg) !important;
+  box-shadow: 0 25px 45px -10px rgba(255, 94, 142, 0.3);
+  z-index: 20;
+}
+
+.polaroid-card::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 24px;
+  background: rgba(255, 230, 200, 0.65);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transform: translateX(-50%) rotate(-2deg);
+  border-left: 2px dashed rgba(200, 180, 160, 0.4);
+  border-right: 2px dashed rgba(200, 180, 160, 0.4);
+}
+
+/* Glassmorphism Container */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Interactive Candle & Flame */
+.cake-flame {
+  width: 12px;
+  height: 22px;
+  background: radial-gradient(circle, #fff 10%, #ffd000 50%, #ff4500 90%);
+  border-radius: 50% 50% 35% 35%;
+  margin: 0 auto;
+  box-shadow: 0 0 16px 4px rgba(255, 165, 0, 0.8), 0 0 30px 10px rgba(255, 69, 0, 0.3);
+  animation: flicker 1.2s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  transition: all 0.5s ease-out;
+}
+
+.cake-flame.blown-out {
+  opacity: 0;
+  transform: scale(0.1) translateY(-10px);
+  filter: blur(4px);
+}
+
+@keyframes flicker {
+  0% { transform: scale(1) rotate(-2deg); }
+  25% { transform: scale(1.08, 0.95) rotate(3deg); }
+  50% { transform: scale(0.95, 1.05) rotate(-1deg); }
+  75% { transform: scale(1.04) rotate(2deg); }
+  100% { transform: scale(1) rotate(-2deg); }
+}
+
+/* Smoke puff when blown out */
+.smoke {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: rgba(180, 180, 180, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.cake-flame.blown-out + .smoke {
+  animation: smokeRise 1.8s forwards;
+}
+
+@keyframes smokeRise {
+  0% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-30%) translateY(-50px) scale(3.5);
+    filter: blur(6px);
+  }
+}
+
+/* Envelope Modal Overlay */
+.intro-modal {
+  background: radial-gradient(circle at center, rgba(30, 20, 40, 0.88), rgba(15, 10, 25, 0.96));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Wobble / bounce on gift */
+@keyframes giftShake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  20% { transform: rotate(-8deg) scale(1.06); }
+  40% { transform: rotate(8deg) scale(1.06); }
+  60% { transform: rotate(-5deg) scale(1.04); }
+  80% { transform: rotate(5deg) scale(1.04); }
+}
+
+.gift-animate {
+  animation: giftShake 2s infinite ease-in-out;
+}
+
+/* Interactive Floating Hearts Rain */
+.floating-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  animation: floatHeart 3s ease-out forwards;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-180px) scale(1.4) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fff0f3;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff8fa3;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff5e8e;
+}

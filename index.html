@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tug'ilgan kuning muborak, Farangiz! 🎂 | Akang Boburdan</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandPink: '#ff5e8e',
+            brandSoft: '#ff8fa3',
+            brandGold: '#ffb703',
+            brandPurple: '#8338ec'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="relative">
+
+  <!-- Fullscreen Confetti Canvas -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- Background Floating Balloons -->
+  <div id="balloonContainer" class="balloon-container"></div>
+
+  <!-- Audio Element (Optional user mp3 fallback) -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src="images/music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Music Toggle Controller -->
+  <div class="fixed top-4 right-4 z-40">
+    <button id="musicToggleBtn" onclick="musicPlayer.toggle()" 
+            class="flex items-center space-x-2 px-4 py-2.5 rounded-full bg-white/90 backdrop-blur-md shadow-lg border border-pink-200 hover:scale-105 transition-all text-sm font-semibold text-gray-700">
+      <i id="musicIcon" class="fas fa-volume-mute text-brandPink"></i>
+      <span id="musicStatusText" class="hidden sm:inline">Musiqani yoqish 🎵</span>
+    </button>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- INTRO GIFT MODAL OVERLAY -->
+  <!-- ========================================== -->
+  <div id="introGiftModal" class="intro-modal fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="glass-panel max-w-md w-full rounded-3xl p-8 text-center shadow-2xl border border-white/40 relative overflow-hidden">
+      <!-- Glow background accent -->
+      <div class="absolute -top-16 -right-16 w-36 h-36 bg-pink-400 rounded-full blur-3xl opacity-40"></div>
+      <div class="absolute -bottom-16 -left-16 w-36 h-36 bg-amber-400 rounded-full blur-3xl opacity-40"></div>
+
+      <!-- Animated Gift Box -->
+      <div class="relative mb-6">
+        <div id="giftBoxIcon" class="gift-animate inline-block text-7xl select-none cursor-pointer filter drop-shadow-lg" onclick="openGiftIntro()">
+          🎁
+        </div>
+      </div>
+
+      <div class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-600 text-xs font-bold uppercase tracking-wider mb-3">
+        Farangiz uchun maxsus
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-bold font-serif-title text-gray-800 mb-2">
+        Senga Kutilmagan Sovg'a Bor! ✨
+      </h2>
+      <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+        Bugun sen uchun juda o'zgacha kun. Akang Boburdan tayyorlangan samimiy tabrikni ko'rish uchun qutini och!
+      </p>
+
+      <button onclick="openGiftIntro()" 
+              class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white font-bold text-base shadow-lg shadow-rose-300 hover:shadow-rose-400 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center space-x-2">
+        <span>Sovg'ani ochish 💌</span>
+        <i class="fas fa-sparkles"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MAIN CONTENT CONTAINER -->
+  <!-- ========================================== -->
+  <div class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-16 sm:space-y-24">
+
+    <!-- HERO HEADER SECTION -->
+    <header class="text-center space-y-5 pt-6">
+      <!-- Cute Date Badge -->
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-rose-200 text-rose-600 font-semibold text-xs sm:text-sm shadow-sm">
+        <span class="animate-bounce">🎉</span>
+        <span>Bugun — 18-Sentabr: Dunyodagi eng quvonchli kun!</span>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold font-serif-title tracking-tight text-gray-800 leading-tight">
+        Tug'ilgan kuning muborak, <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 bg-clip-text text-transparent">
+          Farangiz! 🎂✨
+        </span>
+      </h1>
+
+      <!-- Subtitle from Bobur -->
+      <div class="max-w-2xl mx-auto">
+        <p class="text-lg sm:text-2xl font-handwriting text-rose-600 font-bold tracking-wide">
+          "Eng ezgu va samimiy tilaklar bilan — Akang Boburdan"
+        </p>
+        <p class="text-sm sm:text-base text-gray-600 mt-2 leading-relaxed">
+          Ushbu sahifa senga bayramona kayfiyat, tabassum va unutilmas xotiralar baxsh etish uchun maxsus mehr bilan tayyorlandi.
+        </p>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-wrap justify-center gap-3 pt-2">
+        <button onclick="rainHearts()" class="px-5 py-2.5 rounded-xl bg-white/90 hover:bg-rose-50 text-rose-600 border border-rose-200 font-semibold text-sm shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+          <span>💖 Yurakchalar</span>
+        </button>
+        <button onclick="document.getElementById('blueRoseSection').scrollIntoView({behavior: 'smooth'})" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+          <span>💙 Moviy Guldasta</span>
+        </button>
+        <button onclick="triggerFireworks()" class="px-5 py-2.5 rounded-xl bg-white/90 hover:bg-amber-50 text-amber-600 border border-amber-200 font-semibold text-sm shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+          <span>🎆 Mushaklar</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- INTERACTIVE BIRTHDAY CAKE -->
+    <!-- ========================================== -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-10 shadow-xl border border-white text-center relative overflow-hidden">
+      <div class="max-w-xl mx-auto space-y-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-pink-500 bg-pink-100 px-3 py-1 rounded-full">
+            Interaktiv Sahna
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-serif-title text-gray-800 mt-3">
+            Bitta Tilak O'yla va Shamni O'chir! 🎂
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            Qalbingdagi eng ezgu orzuni o'ylab, sham ustiga bosing yoki quyidagi tugmadan foydalaning.
+          </p>
+        </div>
+
+        <!-- The Cake & Candles Graphic -->
+        <div class="relative py-4 flex flex-col items-center justify-center cursor-pointer select-none" onclick="blowCandles()">
+          <!-- 3 Candles -->
+          <div class="flex space-x-6 mb-1 relative z-10">
+            <!-- Candle 1 -->
+            <div class="flex flex-col items-center">
+              <div class="relative">
+                <div class="cake-flame"></div>
+                <div class="smoke"></div>
+              </div>
+              <div class="w-3.5 h-10 bg-gradient-to-b from-pink-300 to-rose-400 rounded-t-sm shadow-sm"></div>
+            </div>
+            <!-- Candle 2 (Middle) -->
+            <div class="flex flex-col items-center">
+              <div class="relative">
+                <div class="cake-flame" style="animation-delay: 0.3s"></div>
+                <div class="smoke"></div>
+              </div>
+              <div class="w-3.5 h-12 bg-gradient-to-b from-amber-300 to-yellow-400 rounded-t-sm shadow-sm"></div>
+            </div>
+            <!-- Candle 3 -->
+            <div class="flex flex-col items-center">
+              <div class="relative">
+                <div class="cake-flame" style="animation-delay: 0.6s"></div>
+                <div class="smoke"></div>
+              </div>
+              <div class="w-3.5 h-10 bg-gradient-to-b from-purple-300 to-indigo-400 rounded-t-sm shadow-sm"></div>
+            </div>
+          </div>
+
+          <!-- Cake Layers -->
+          <div class="w-48 sm:w-56 h-12 bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 rounded-t-2xl shadow-inner border-b-4 border-rose-300 relative flex items-center justify-center">
+            <span class="text-xs font-semibold text-rose-500 tracking-wider">✨ FARANGIZ ✨</span>
+          </div>
+          <div class="w-60 sm:w-72 h-14 bg-gradient-to-r from-amber-100 via-white to-amber-100 rounded-t-2xl shadow-md border-b-4 border-amber-200 flex items-center justify-around px-4">
+            <span class="text-base">🍓</span>
+            <span class="text-base">🌸</span>
+            <span class="text-base">🍰</span>
+            <span class="text-base">🌸</span>
+            <span class="text-base">🍓</span>
+          </div>
+          <!-- Cake Plate / Stand -->
+          <div class="w-72 sm:w-84 h-3 bg-gradient-to-r from-gray-200 via-white to-gray-200 rounded-full shadow-lg"></div>
+        </div>
+
+        <!-- Action Button -->
+        <div>
+          <button id="blowCandleBtn" onclick="blowCandles()" 
+                  class="px-8 py-3 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-sm sm:text-base shadow-md hover:scale-105 active:scale-95 transition-all">
+            ✨ Barcha shamlarni o'chirish
+          </button>
+        </div>
+
+        <!-- Wish Message Banner (revealed on blow out) -->
+        <div id="wishResultBanner" class="hidden flex-col items-center p-4 bg-amber-50/90 border border-amber-200 rounded-2xl animate-fade-in">
+          <span class="text-2xl mb-1">🌟</span>
+          <h4 class="font-bold text-amber-800 text-base sm:text-lg">Niyating qabul bo'lsin, Farangiz!</h4>
+          <p class="text-xs sm:text-sm text-amber-700 text-center max-w-md mt-1">
+            Barcha ezgu orzularing eng go'zal tarzda amalga oshsin. Yangi yoshing senga cheksiz omad, baxt va zafarlar keltirsin!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SPECIAL GIFT: ROYAL BLUE ROSE BOUQUET -->
+    <!-- ========================================== -->
+    <section id="blueRoseSection" class="glass-panel rounded-3xl p-6 sm:p-10 shadow-2xl border border-blue-200/60 bg-gradient-to-br from-blue-50/90 via-white/95 to-indigo-50/90 relative overflow-hidden">
+      <!-- Ambient blue glow in background -->
+      <div class="absolute -top-24 -left-24 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        
+        <!-- Left Column: Bouquet Presentation -->
+        <div class="w-full lg:w-1/2 flex flex-col items-center">
+          <div class="relative cursor-pointer group" onclick="openLightbox('images/blue_rose_bouquet.jpg', 'Farangiz uchun maxsus: Moviy Atirgullar Guldastasi 💙🌹')">
+            <!-- Bouquet Card with Blue Glow -->
+            <div class="polaroid-card rounded-2xl blue-glow transform hover:scale-[1.02] transition-all duration-300">
+              <div class="w-full aspect-[3/4] max-h-[440px] rounded-xl overflow-hidden shadow-md bg-slate-900 relative">
+                <img src="images/blue_rose_bouquet.jpg" alt="Moviy atirgullar guldastasi" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                <!-- Zoom indicator pill -->
+                <div class="absolute bottom-3 right-3 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-white text-xs font-semibold flex items-center space-x-1.5 shadow-sm">
+                  <i class="fas fa-search-plus"></i>
+                  <span>Kattalashtirish</span>
+                </div>
+              </div>
+              <p class="font-handwriting text-2xl text-center text-blue-700 font-bold mt-3">
+                Maxsus Moviy Atirgullar 💙
+              </p>
+              <p class="text-center text-xs text-gray-500">Bobur akangdan bayram sovg'asi</p>
+            </div>
+
+            <!-- Inset reference preview of the single blue rose -->
+            <div class="hidden sm:flex items-center space-x-2 absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-md border border-blue-200 rounded-2xl p-2 shadow-lg z-20">
+              <img src="images/blue_rose_single.png" alt="Moviy atirgul" class="w-10 h-10 rounded-xl object-cover border border-blue-100">
+              <div class="text-left pr-2">
+                <p class="text-[11px] font-bold text-blue-900 leading-tight">Aynan o'sha gul!</p>
+                <p class="text-[10px] text-gray-500">Sening orzuingdagi moviy atirgul ✨</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Romantic & Heartfelt Story -->
+        <div class="w-full lg:w-1/2 space-y-5 text-center lg:text-left">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">
+            <span>💎</span>
+            <span>Noyob va Mo'jizaviy Sovg'a</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-bold font-serif-title text-gray-800 leading-tight">
+            Farangiz uchun Afsonaviy <br class="hidden sm:inline" />
+            <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">
+              Moviy Atirgullar Guldastasi! 💙
+            </span>
+          </h2>
+
+          <div class="space-y-3 text-sm sm:text-base text-gray-600 leading-relaxed">
+            <p>
+              Moviy atirgul — dunyodagi eng sirli, eng noyob va maftunkor guldastadir. U tabiatda kamyob bo'lgani kabi, <strong>"Mo'jizalar ro'yobi"</strong>, <strong>"Eng ezgu orzular ushalishi"</strong> va <strong>"Sen dunyoda takrorlanmas, yagonasan!"</strong> degan ma'nolarni ifodalaydi.
+            </p>
+            <p class="font-medium text-blue-900">
+              Akang Bobur aynan sen yaxshi ko'rgan shu sehrli moviy atirgullardan yasalgan hashamatli guldastani bugungi tavallud ayyomingga hadya qiladi!
+            </p>
+          </div>
+
+          <!-- Interactive Actions -->
+          <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-3">
+            <button onclick="rainBlueHearts()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-blue-300 hover:shadow-blue-400 hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+              <i class="fas fa-gift"></i>
+              <span>Guldastani qabul qilish 💙</span>
+            </button>
+            <button onclick="openLightbox('images/blue_rose_bouquet.jpg', 'Farangiz uchun maxsus: Moviy Atirgullar Guldastasi 💙🌹')" class="px-5 py-3 rounded-2xl bg-white border border-blue-200 text-blue-700 font-semibold text-sm shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+              <i class="fas fa-search-plus text-blue-500"></i>
+              <span>Suratni ko'rish</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- POLAROID MEMORIES GALLERY -->
+    <!-- ========================================== -->
+    <section class="space-y-8">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-rose-500 bg-rose-100 px-3 py-1 rounded-full">
+          Esdaliklar
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif-title text-gray-800">
+          Xotiralar Galereyasi 📸
+        </h2>
+        <p class="text-sm text-gray-500 max-w-lg mx-auto">
+          Farangizning beg'ubor onlari va eng chiroyli xotiralari. Kattalashtirib ko'rish uchun rasm ustiga bosing!
+        </p>
+      </div>
+
+      <!-- Polaroid Grid: 4 photos of Farangiz -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
+        
+        <!-- Card 1: Roses Smiling -->
+        <div class="polaroid-card rounded-xl transform -rotate-2 hover:rotate-0 cursor-pointer" onclick="openLightbox('images/farangiz1.jpg', 'Samimiy Tabassum Egasi 😊')">
+          <div class="w-full aspect-[3/4] rounded-lg overflow-hidden bg-rose-50 mb-3 shadow-inner">
+            <img src="images/farangiz1.jpg" alt="Farangiz gullar bilan" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
+          </div>
+          <p class="font-handwriting text-xl text-center text-gray-800 font-bold">
+            Samimiy Tabassum Egasi 😊
+          </p>
+          <p class="text-center text-xs text-rose-500 font-medium mt-1">Gullar ichida ochilgan gulimiz</p>
+        </div>
+
+        <!-- Card 2: Roses Looking Down -->
+        <div class="polaroid-card rounded-xl transform rotate-2 hover:rotate-0 cursor-pointer" onclick="openLightbox('images/farangiz2.jpg', 'Beg\'ubor va Nozik Onlar 🌸')">
+          <div class="w-full aspect-[3/4] rounded-lg overflow-hidden bg-purple-50 mb-3 shadow-inner">
+            <img src="images/farangiz2.jpg" alt="Farangiz guldasta bilan" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
+          </div>
+          <p class="font-handwriting text-xl text-center text-gray-800 font-bold">
+            Beg'ubor va Nozik Onlar 🌸
+          </p>
+          <p class="text-center text-xs text-purple-500 font-medium mt-1">Har doim shunday latofatli bo'l</p>
+        </div>
+
+        <!-- Card 3: Portrait Close-up -->
+        <div class="polaroid-card rounded-xl transform -rotate-1 hover:rotate-0 cursor-pointer" onclick="openLightbox('images/farangiz3.jpg', 'Go\'zallik va Latofat ✨')">
+          <div class="w-full aspect-[3/4] rounded-lg overflow-hidden bg-amber-50 mb-3 shadow-inner">
+            <img src="images/farangiz3.jpg" alt="Farangiz portreti" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
+          </div>
+          <p class="font-handwriting text-xl text-center text-gray-800 font-bold">
+            Go'zallik va Latofat ✨
+          </p>
+          <p class="text-center text-xs text-amber-600 font-medium mt-1">Ko'zlaringdan quvonch arimasin</p>
+        </div>
+
+        <!-- Card 4: Mirror Selfie -->
+        <div class="polaroid-card rounded-xl transform rotate-3 hover:rotate-0 cursor-pointer" onclick="openLightbox('images/farangiz4.jpg', 'Baxtli va Omadli Kunlar 💖')">
+          <div class="w-full aspect-[3/4] rounded-lg overflow-hidden bg-blue-50 mb-3 shadow-inner">
+            <img src="images/farangiz4.jpg" alt="Farangiz" class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500">
+          </div>
+          <p class="font-handwriting text-xl text-center text-gray-800 font-bold">
+            Baxtli va Omadli Kunlar 💖
+          </p>
+          <p class="text-center text-xs text-blue-500 font-medium mt-1">Oilamizning sevimli qizi</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SPECIAL FEATURE: AKA VA SINGIL (BOBUR VA FARANGIZ) -->
+    <!-- ========================================== -->
+    <section class="glass-panel p-6 sm:p-10 rounded-3xl shadow-xl border border-white/90 bg-gradient-to-br from-rose-50/90 via-white/95 to-amber-50/90 relative overflow-hidden">
+      <!-- Decorative background blur -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-pink-200 rounded-full blur-3xl opacity-30 -mr-20 -mt-20"></div>
+      
+      <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
+        
+        <!-- Big Polaroid Card for Bobur & Farangiz together -->
+        <div class="w-full lg:w-5/12 max-w-sm flex-shrink-0">
+          <div class="polaroid-card rounded-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-300 cursor-pointer" onclick="openLightbox('images/farangiz_bobur.jpg', 'Aka va Singil — Har doim birgamiz! 🤍')">
+            <div class="w-full aspect-[3/4] rounded-xl overflow-hidden shadow-inner bg-rose-100">
+              <img src="images/farangiz_bobur.jpg" alt="Bobur va Farangiz birgalikda" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
+            </div>
+            <p class="font-handwriting text-2xl text-center text-rose-600 font-bold mt-3">
+              Aka va Singil — Har doim birgamiz! 🤍
+            </p>
+            <p class="text-center text-xs text-gray-500 mt-0.5">Bobur & Farangiz</p>
+          </div>
+        </div>
+
+        <!-- Touching Brotherly Words -->
+        <div class="w-full lg:w-7/12 space-y-5 text-center lg:text-left">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-rose-100/90 text-rose-600 text-xs font-bold uppercase tracking-wider">
+            <span>🛡️</span>
+            <span>Akang Boburdan Yurak So'zlari</span>
+          </div>
+
+          <h3 class="text-3xl sm:text-4xl font-bold font-serif-title text-gray-800 leading-tight">
+            "Sen mening eng mehribon, eng suyukli singlimsan!"
+          </h3>
+
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+            Farangiz, ushbu surat bizning birgalikdagi eng qadrli xotiralarimizdan biri. Hayot yo'llarida qanday kunlar bo'lmasin, senga suyanchiq bo'ladigan, har bir muvaffaqiyatingdan quvonadigan va sen bilan doim faxrlanadigan Bobur akang borligini hech qachon unutma.
+          </p>
+
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base font-medium">
+            Senga dunyodagi eng samimiy baxtni, cheksiz muhabbatni va har qadamda omad hamroh bo'lishini tilayman. Har doim shunday ochiqko'ngil, quvnoq va mehribon bo'lib yurgin!
+          </p>
+
+          <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-3">
+            <button onclick="rainHearts()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold text-sm shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+              <i class="fas fa-heart"></i>
+              <span>Akangdan Cheksiz Mehr</span>
+            </button>
+            <button onclick="triggerFireworks()" class="px-6 py-2.5 rounded-xl bg-white border border-rose-200 text-rose-600 font-semibold text-sm shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center space-x-2">
+              <i class="fas fa-sparkles text-amber-500"></i>
+              <span>Bayramona Mushaklar</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- HEARTFELT WISHES CARDS GRID -->
+    <!-- ========================================== -->
+    <section class="space-y-8">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-500 bg-amber-100 px-3 py-1 rounded-full">
+          Dildan Chiqqan So'zlar
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif-title text-gray-800">
+          Akang Boburdan Ezgu Tilaklar 💌
+        </h2>
+        <p class="text-sm text-gray-500 max-w-lg mx-auto">
+          Mening aziz singlim Farangiz uchun qalbimdagi eng samimiy orzular to'plami.
+        </p>
+      </div>
+
+      <!-- Greeting Cards 2x2 Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Card 1: Sog'lik va Go'zallik -->
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl shadow-lg border border-white/80 hover:shadow-xl transition-all relative overflow-hidden group">
+          <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+            🌸
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif-title">
+            Mustahkam Sog'lik va Go'zallik
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Azizim Farangiz, senga eng avvalo uzoq umr, mustahkam sog'liq va qalb xotirjamligini tilayman. Bahor faslining ochilgan nozik gullaridek doimo go'zal, latofatli va quvnoq bo'lib yur. Ko'zlaringdan hech qachon quvonch nuri so'nmasin!
+          </p>
+        </div>
+
+        <!-- Card 2: Katta Orzular va Zafarlar -->
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl shadow-lg border border-white/80 hover:shadow-xl transition-all relative overflow-hidden group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+            🚀
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif-title">
+            Katta Orzular va Zafarlar
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Hayotda o'zing orzu qilgan eng yuksak cho'qqilarga yetishishingni tilayman. O'qishlaringda, kelajakdagi barcha rejalaringda omad doimo senga hamroh bo'lsin. Har bir bosgan qadaming seni yangi muvaffaqiyatlar tomon yetaklasin!
+          </p>
+        </div>
+
+        <!-- Card 3: Doimiy Suyanchiq (Akasi Bobur) -->
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl shadow-lg border border-white/80 hover:shadow-xl transition-all relative overflow-hidden group bg-gradient-to-br from-white/90 to-rose-50/80">
+          <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+            🛡️
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif-title">
+            Har Doim Sen Bilanman
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Yodingda tut, hayotda qanday vaziyat bo'lishidan qat'i nazar, orqangda seni har doim himoya qiladigan, qo'llab-quvvatlaydigan va sen bilan cheksiz faxrlanadigan Bobur akang bor. Sen bizning suyukli, mehrli va eng qadrli singlimizsan!
+          </p>
+        </div>
+
+        <!-- Card 4: Cheksiz Baxt va Tabassum -->
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl shadow-lg border border-white/80 hover:shadow-xl transition-all relative overflow-hidden group">
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+            💖
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2 font-serif-title">
+            Cheksiz Baxt va Quvonch
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Yangi yoshing senga kutilmagan ajoyib sovg'alar, qiziqarli sarguzashtlar, eng samimiy insonlar va unutilmas baxtli onlarni hadya etsin. Har bir kuning bayramdek quvonchli va mazmunli o'tsin!
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Surprise Quote Button -->
+      <div class="text-center pt-4">
+        <button onclick="showSurpriseWish()" 
+                class="px-8 py-3.5 rounded-2xl bg-white/90 border border-pink-300 text-rose-600 font-bold text-sm sm:text-base shadow-lg shadow-pink-100 hover:scale-105 active:scale-95 transition-all flex items-center space-x-2 mx-auto">
+          <span>💌 Akang Boburdan maxsus kutilmagan xabar</span>
+          <i class="fas fa-magic text-amber-500"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FOOTER -->
+    <!-- ========================================== -->
+    <footer class="text-center pt-10 pb-8 border-t border-rose-200/60 space-y-3">
+      <div class="flex items-center justify-center space-x-2 text-rose-500 text-xl">
+        <span>✨</span>
+        <i class="fas fa-heart text-red-500"></i>
+        <span>✨</span>
+      </div>
+      <p class="font-serif-title text-base sm:text-lg text-gray-700 font-bold">
+        Cheksiz mehr va hurmat bilan: Akang Bobur
+      </p>
+      <p class="text-xs text-gray-500">
+        Farangizning tavallud ayyomi uchun maxsus tayyorlandi • 2026-yil
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- LIGHTBOX MODAL FOR HIGH-RES PHOTO PREVIEW -->
+  <!-- ========================================== -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 cursor-pointer" onclick="closeLightbox()">
+    <div class="max-w-xl w-full max-h-[90vh] flex flex-col items-center relative" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white text-3xl hover:text-pink-300 transition-colors">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="bg-white p-3 rounded-2xl shadow-2xl max-h-[82vh] overflow-hidden flex flex-col items-center">
+        <img id="lightboxImage" src="" alt="Farangiz" class="max-h-[72vh] w-auto object-contain rounded-xl shadow-sm">
+        <p id="lightboxCaption" class="font-handwriting text-2xl text-rose-600 font-bold mt-2 text-center"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SURPRISE WISH POPUP MODAL -->
+  <!-- ========================================== -->
+  <div id="surpriseWishModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="glass-panel max-w-md w-full rounded-3xl p-6 sm:p-8 shadow-2xl border border-white text-center relative animate-fade-in">
+      <!-- Close button -->
+      <button onclick="closeSurpriseWish()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center transition-all">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="w-14 h-14 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center text-3xl mx-auto mb-4">
+        💌
+      </div>
+
+      <h3 id="modalWishTitle" class="text-xl font-bold font-serif-title text-gray-800 mb-3">
+        Akang Boburdan maxsus eslatma 🌟
+      </h3>
+      <p id="modalWishText" class="text-sm text-gray-600 leading-relaxed mb-6">
+        Farangiz, yodingda tut: hayotda qanday qiyin yoki quvonchli vaziyat bo'lmasin, orqangda seni doimo qo'llab-quvvatlaydigan va sen bilan cheksiz faxrlanadigan Bobur akang bor. Sen eng yaxshisiga loyiqsan!
+      </p>
+
+      <div class="flex gap-2">
+        <button onclick="showSurpriseWish()" class="flex-1 py-2.5 px-4 rounded-xl bg-pink-100 hover:bg-pink-200 text-rose-700 font-semibold text-xs sm:text-sm transition-all">
+          Boshqa tilak ko'rish 🔄
+        </button>
+        <button onclick="closeSurpriseWish()" class="flex-1 py-2.5 px-4 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold text-xs sm:text-sm transition-all">
+          Rahmat! ❤️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
